@@ -1,11 +1,7 @@
 const Modal = {
-    open(){
-        document.querySelector('.modal-overlay').classList.add('active');
-    },
-    close(){
-        document.querySelector('.modal-overlay').classList.remove('active');
+    openOrCloseWindow() {
+        document.querySelector('.modal-overlay').classList.toggle('active');
     }
-    //toogle()
 }
 
 const Storage = {
@@ -163,7 +159,7 @@ const Form = {
             Transaction.add(transaction);
             // LIMPANDO TELA
             Form.clearFields();
-            Modal.close();
+            Modal.openOrCloseWindow();
         } catch (error) {
             alert(error);
         }
