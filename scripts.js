@@ -1,6 +1,9 @@
 const Modal = {
     openOrCloseWindow() {
         document.querySelector('.modal-overlay').classList.toggle('active');
+
+        // LIMPANDO TELA
+        Form.clearFields();
     }
 }
 
@@ -127,10 +130,32 @@ const Form = {
     },
     validateFields() {
         const { description, amount, date } = Form.getValues();
+        const colorBackgroundError = "#ffdfd4";
 
-        if (description.trim() === "" || amount.trim() === "" || date.trim() === "") {
-            throw new Error("Por favor, preencha todos os campos");
+        if (description.trim() === "" && amount.trim() === "" && date.trim() === "") {
+            Form.description.style.backgroundColor = colorBackgroundError;
+            Form.amount.style.backgroundColor = colorBackgroundError;
+            Form.date.style.backgroundColor = colorBackgroundError;
+            Form.description.focus();
+            throw new Error("Por favor, preencha todos os campos!");
         }
+
+        if (description.trim() === "") {
+            Form.description.style.backgroundColor = colorBackgroundError;
+            Form.description.focus();
+            throw new Error("Por favor, coloque uma descrição para nova transação!");
+        }
+        if (amount.trim() === "") {
+            Form.amount.style.backgroundColor = colorBackgroundError;
+            Form.amount.focus();
+            throw new Error("Por favor, coloque um valor para nova transação!");
+        }
+        if (date.trim() === "") {
+            Form.date.style.backgroundColor = colorBackgroundError;
+            Form.date.focus();
+            throw new Error("Por favor, coloque uma data para nova transação!");
+        }
+
     },
     formatValues() {
         let { description, amount, date } = Form.getValues();
@@ -148,6 +173,10 @@ const Form = {
         Form.description.value = "";
         Form.amount.value = "";
         Form.date.value = "";
+
+        Form.description.style.backgroundColor = "#fff";
+        Form.amount.style.backgroundColor = "#fff";
+        Form.date.style.backgroundColor = "#fff";
     },
     submit(event) {
         event.preventDefault();
@@ -157,8 +186,7 @@ const Form = {
             const transaction = Form.formatValues();
             // SALVANDO
             Transaction.add(transaction);
-            // LIMPANDO TELA
-            Form.clearFields();
+            
             Modal.openOrCloseWindow();
         } catch (error) {
             alert(error);
@@ -181,5 +209,15 @@ const App = {
         App.init();
     }
 }
+
+document.querySelector('input#description').onkeypress = ()=>{
+    document.querySelector('input#description').style.backgroundColor = "#fff";
+};
+document.querySelector('input#amount').onkeypress = ()=>{
+    document.querySelector('input#amount').style.backgroundColor = "#fff";
+};
+document.querySelector('input#date').onchange = ()=>{
+    document.querySelector('input#date').style.backgroundColor = "#fff";
+};
 
 App.init();
