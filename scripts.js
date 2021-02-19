@@ -178,6 +178,17 @@ const Form = {
         Form.amount.style.backgroundColor = "#fff";
         Form.date.style.backgroundColor = "#fff";
     },
+    resetBackgroundColorInput(){
+        Form.description.onkeypress = ()=>{
+            document.querySelector('input#description').style.backgroundColor = "#fff";
+        };
+        Form.amount.onkeypress = ()=>{
+            document.querySelector('input#amount').style.backgroundColor = "#fff";
+        };
+        Form.date.onchange = ()=>{
+            document.querySelector('input#date').style.backgroundColor = "#fff";
+        };
+    },
     submit(event) {
         event.preventDefault();
 
@@ -210,14 +221,6 @@ const App = {
     }
 }
 
-document.querySelector('input#description').onkeypress = ()=>{
-    document.querySelector('input#description').style.backgroundColor = "#fff";
-};
-document.querySelector('input#amount').onkeypress = ()=>{
-    document.querySelector('input#amount').style.backgroundColor = "#fff";
-};
-document.querySelector('input#date').onchange = ()=>{
-    document.querySelector('input#date').style.backgroundColor = "#fff";
-};
+Form.resetBackgroundColorInput();
 
 App.init();
